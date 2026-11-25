@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Deal Flash</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header><img src="icons/icon-32.png" width="20" height="20" alt=""> <h1>Deal Flash</h1></header>
+
+<p id="status" class="status">Loading…</p>
+
+<section id="actions" hidden>
+  <button id="start" type="button" class="primary">Page through this page</button>
+  <label id="always-row" class="toggle" hidden>
+    <input id="always" type="checkbox">
+    <span>Always on for <b id="always-host"></b></span>
+  </label>
+  <p id="note" class="note" hidden></p>
+</section>
+
+<p id="message" class="note" role="status" hidden></p>
+
+<section class="keys">
+  <h2>Keys</h2>
+  <dl>
+    <dt><kbd>j</kbd> <kbd>k</kbd></dt><dd>next / previous</dd>
+    <dt><kbd>s</kbd></dt><dd>star</dd>
+    <dt><kbd>c</kbd></dt><dd>copy starred</dd>
+    <dt><kbd>v</kbd></dt><dd>card / page view</dd>
+    <dt><kbd>?</kbd></dt><dd>all keys</dd>
+    <dt><kbd>Esc</kbd></dt><dd>off</dd>
+  </dl>
+  <p class="note" id="shortcut"></p>
+</section>
+
+<section>
+  <h2>Always-on sites</h2>
+  <ul id="sites" class="sites"></ul>
+  <p id="no-sites" class="note">None yet.</p>
+  <h2>Built in</h2>
+  <ul id="builtins" class="sites"></ul>
+</section>
+
+<script src="popup.js"></script>
+</body>
+</html>

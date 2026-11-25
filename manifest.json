@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Deal Flash",
+  "version": "2.0.0",
+  "description": "Page through long deal lists and gift guides one item at a time with j and k. Star the good ones and copy them as a list.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "Deal Flash",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "optional_host_permissions": ["https://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "start-pager": {
+      "suggested_key": { "default": "Alt+Shift+J" },
+      "description": "Page through the current page"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.nytimes.com/wirecutter/*",
+        "https://www.nytimes.com/interactive/*",
+        "https://www.amazon.com/*"
+      ],
+      "js": ["pager.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

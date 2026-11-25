@@ -1,0 +1,67 @@
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --fg: #1d1d1f;
+  --muted: #6b6b70;
+  --line: #e2e2e6;
+  --accent: #1f4e5f;
+  --accent-fg: #ffffff;
+  --kbd: #f1f1f4;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #202124;
+    --fg: #e8e8ea;
+    --muted: #a0a0a8;
+    --line: #3a3b3f;
+    --accent: #ffc83d;
+    --accent-fg: #1d1d1f;
+    --kbd: #2e2f33;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  width: 300px;
+  padding: 12px 14px 14px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+header { display: flex; align-items: center; gap: 8px; }
+h1 { font-size: 15px; margin: 0; }
+h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 14px 0 6px; font-weight: 600; }
+.status { margin: 10px 0; }
+.note { color: var(--muted); margin: 6px 0 0; font-size: 12px; }
+button { font: inherit; cursor: pointer; }
+button.primary {
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 600;
+}
+button.primary:disabled { opacity: .5; cursor: default; }
+.toggle { display: flex; align-items: center; gap: 8px; margin-top: 10px; cursor: pointer; }
+.toggle b { font-weight: 600; word-break: break-all; }
+.keys dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; }
+.keys dt { white-space: nowrap; }
+.keys dd { margin: 0; color: var(--muted); }
+kbd {
+  display: inline-block;
+  min-width: 18px;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--kbd);
+  font: 11px/16px ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-align: center;
+}
+.sites { list-style: none; margin: 0; padding: 0; }
+.sites li { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 0; border-top: 1px solid var(--line); word-break: break-all; }
+.sites li:first-child { border-top: 0; }
+.sites .tag { color: var(--muted); font-size: 11px; white-space: nowrap; }
+.sites button { border: 1px solid var(--line); background: transparent; color: var(--fg); border-radius: 4px; padding: 1px 8px; font-size: 12px; }
+input[type="checkbox"] { accent-color: var(--accent); }

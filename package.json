@@ -1,0 +1,16 @@
+{
+  "name": "deal-flash",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Chromium extension: page through long deal lists and gift guides one item at a time with j and k.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node test/run.cjs && node test/shell.cjs",
+    "icons": "node icons/make-icons.cjs",
+    "package": "scripts/package.sh"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.9.0",
+    "sharp": "^0.35.5"
+  }
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Deal Flash: a lightning bolt on a price tag. Original artwork. -->
+  <!-- Tag: a rounded rectangle with a pointed left end and a punched hole. -->
+  <path d="M42 14 H108 a10 10 0 0 1 10 10 V104 a10 10 0 0 1 -10 10 H42 a10 10 0 0 1 -7.1 -2.9 L10.9 71.1 a10 10 0 0 1 0 -14.2 L34.9 16.9 A10 10 0 0 1 42 14 Z"
+        fill="#1f4e5f"/>
+  <circle cx="30" cy="64" r="8" fill="#ffffff"/>
+  <!-- Bolt -->
+  <path d="M88 16 L48 72 H72 L62 112 L106 52 H82 L96 16 Z" fill="#ffc83d" stroke="#1f4e5f" stroke-width="4" stroke-linejoin="round"/>
+</svg>
