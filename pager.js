@@ -11,8 +11,9 @@
 // v            switch between card view and page view
 // ?            show the keys;  Esc  turn the pager off
 //
-// Card view (the default) lifts the item into a large panel with big type.
-// Page view spotlights the item where it sits on the page.
+// Card view (where every page starts) lifts the item into a large panel with
+// big type. Page view spotlights the item where it sits on the page, until
+// the page is left.
 //
 // Finding items: a list of adapters (see ADAPTERS), asked in order. Each one
 // that matches the page is asked for items, and the first that finds any
@@ -1656,7 +1657,10 @@
       if (S.active) render();
     });
   }
-  store.get('df:view').then((v) => { if (v === 'card' || v === 'page') S.view = v; });
+  // The view is not remembered: every page starts in card view, and v
+  // switches it for that page only. Versions up to 2.0.0 saved the choice,
+  // so one stray v left every page in page view; drop what they saved.
+  try { if (hasChromeStorage()) chrome.storage.local.remove('df:view'); } catch { /* nothing to drop */ }
 
   // ---------- geometry (page view) ----------
 
@@ -2140,7 +2144,6 @@
 
   function setView(v) {
     S.view = v;
-    store.set('df:view', v);
     scrollToItem(S.items[S.idx]);
     render();
     toast(v === 'card' ? 'Card view' : 'Page view');

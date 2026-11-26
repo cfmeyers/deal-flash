@@ -58,16 +58,17 @@ Where Deal Flash finds no list of items, `j` and `k` are left to the page.
 | `?`       | Show the keys                                         |
 | `Esc`     | Turn the pager off (clicking outside the card does too) |
 
-**Card view** is the default. **Page view** (`v`) spotlights the item where it
-sits on the page instead, and hides the page's sticky headers and banners
-while it's on.
+Every page starts in **card view**. **Page view** (`v`) spotlights the item
+where it sits on the page instead, and hides the page's sticky headers and
+banners while it's on. It lasts until you leave the page; the next page
+starts in card view again.
 
 A counter at the bottom shows where you are. `12 / 44+` means the page may
 have more to load; paging past the last item scrolls the end of the list into
 view behind the card (and presses a "load more" button if there is one), waits
 a few seconds, and carries on. Any other key stops the wait.
 
-Stars and your view choice are saved in the browser, per page. Keys are
+Stars are saved in the browser, per page. Keys are
 ignored while you're typing in a field or holding Cmd/Ctrl/Option.
 
 ## How it finds items
@@ -113,7 +114,7 @@ page, please open an issue with the address.
 
 | Permission | Why |
 | --- | --- |
-| `storage` | Saves your stars and view choice on your device. |
+| `storage` | Saves your stars on your device. |
 | `activeTab` | Lets the toolbar button and the shortcut read the one tab you used them on. |
 | `scripting` | Loads the pager into that tab, and on your always-on sites. |
 | Site access to nytimes.com (Wirecutter and interactive pages) and amazon.com | The built-in sites. |

@@ -9,9 +9,8 @@ analytics, and it makes no network requests of its own.
 product names, prices, links and images to show them in its own card on the
 same page. None of this is sent anywhere.
 
-**What it stores.** The items you star (name, price, link) and your choice of
-card view or page view are saved in your browser with `chrome.storage.local`.
-They stay on your device and are removed when you unstar them or uninstall the
+**What it stores.** The items you star (name, price, link) are saved in your
+browser with `chrome.storage.local`. They stay on your device and are removed when you unstar them or uninstall the
 extension.
 
 **What it shares.** Nothing. Deal Flash does not sell, transfer or share any
