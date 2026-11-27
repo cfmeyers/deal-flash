@@ -97,7 +97,8 @@ const range = (n, f) => Array.from({ length: n }, f).join('');
 const fixtures = {
   // Mirrors the real page (inspected 2026-11-21): category <section> with an
   // h2, then flat runs of h3 tagline, .global-cob card (h2 product name,
-  // image, price buttons with screen-reader text), description, "Read more".
+  // image over its aria-hidden blurred stand-in (seen 2026-11-26), price
+  // buttons with screen-reader text, description, "Read more".
   wirecutter() {
     k = 0;
     const sr = (t) => `<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">${t}</span>`;
@@ -105,7 +106,7 @@ const fixtures = {
       href="https://www.nytimes.com/wirecutter/out/deals/${5000 + i * 10 + j}?merchant=${m}">${sr('Buying options:')}<span>$${144 + i} from <span><del>$${190 + i}${sr('DEAL, original price')}</del>${sr(', sale price')}</span> <span>${m}</span></span>${sr(', opens in a new tab')}</a></span>
       <div><p style="font:14px sans-serif;text-align:center">You save $46 (24%)</p></div></div>`;
     const product = (i, n, name, merchants) => `<div id="product-${i}-${n}"><div style="display:flex;gap:20px"><div style="flex:0 0 40%">
-      <a href="https://www.nytimes.com/wirecutter/out/deals/${5000 + i * 10}?merchant=Amazon">${img(i, 240)}</a></div>
+      <a style="position:relative;display:block" href="https://www.nytimes.com/wirecutter/out/deals/${5000 + i * 10}?merchant=Amazon"><img aria-hidden="true" width="560" height="240" style="position:absolute;inset:0;z-index:-1" src="${svg('Blur', '#999', 240)}">${img(i, 240)}</a></div>
       <div style="flex:1"><div><div><h2 data-item="${i}" style="font:700 22px sans-serif"><a href="https://www.nytimes.com/wirecutter/out/deals/${5000 + i * 10}?merchant=Amazon">${name}</a></h2></div>
       <p style="font:500 16px sans-serif">Card blurb for ${name}, short and sweet.</p><div>${merchants.map((m, j) => price(i, m, j)).join('')}</div></div></div></div></div>`;
     const item = (double) => {
@@ -416,6 +417,7 @@ async function state(page) {
             cat: (q('.cat') || {}).textContent || '',
             deck: (q('.deck') || {}).textContent || '',
             img: !!q('.media img'),
+            standIn: !!q('.media img') && q('.media img').src.includes('Blur'),
             buys: [...r.querySelectorAll('.buy')].map((b) => b.textContent),
             lede: [...r.querySelectorAll('.lede')].map((p) => p.textContent).join(' | '),
             body: [...r.querySelectorAll('.body p')].map((p) => p.textContent).join(' | '),
@@ -474,6 +476,7 @@ async function checkCard(page, i, fx, label) {
   const title = (fx.titles && fx.titles[i]) || `Test Product ${i + 1}`;
   ok(c.title === title, `${label}: title "${c.title}"`);
   ok(c.img === !fx.noImage, `${label}: image ${c.img ? 'shown' : 'absent'}`);
+  ok(!c.standIn, `${label}: the photo is the real one, not the blurred stand-in under it`);
   ok(c.buys.length >= fx.buys, `${label}: ${c.buys.length} buy button(s): ${c.buys.join(' / ')}`);
   ok(/invented product blurb|Card blurb/.test(c.text), `${label}: shows the write-up`);
   ok(!/Buying options|opens in a new tab|One week to better sleep|Advertisement|Sponsored|Photo credit/.test(c.text), `${label}: no screen-reader text, promos or ads`);

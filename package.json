@@ -1,6 +1,6 @@
 {
   "name": "deal-flash",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "description": "Chromium extension: page through long deal lists and gift guides one item at a time with j and k.",
   "license": "MIT",

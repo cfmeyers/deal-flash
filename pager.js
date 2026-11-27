@@ -1384,6 +1384,11 @@
 
   // ---------- card contents ----------
 
+  // Wirecutter's image host sizes a photo by its width parameter and never
+  // enlarges one, so a big number returns the original (630px for most deal
+  // photos, up to 2048px for some).
+  const wirecutterImg = (u) => (/^https:\/\/cdn\.thewirecutter\.com\//i.test(u) ? u.replace(/([?&]width=)\d+/i, (m, k) => k + '1400') : u);
+
   function bestSrc(img) {
     const cands = [];
     const add = (set) => {
@@ -1457,16 +1462,24 @@
     const blocks = it.blocks.filter((b) => b.isConnected);
     const all = blocks.flatMap((b) => [b, ...b.querySelectorAll('*')]);
 
+    // The largest photo, but not a stand-in: Wirecutter lays a 150px blurred
+    // copy (aria-hidden, no srcset) under each deal's real picture, the same
+    // size on screen and first in the page.
     let img = null;
     let area = 0;
+    let standIn = null;
+    let standInArea = 0;
     for (const e of all) {
       if (e.tagName !== 'IMG') continue;
       const r = e.getBoundingClientRect();
       const w = r.width || +e.getAttribute('width') || 0;
       const h = r.height || +e.getAttribute('height') || 0;
       if (w < 90 || h < 60) continue;
-      if (w * h > area) { img = e; area = w * h; }
+      if (e.getAttribute('aria-hidden') === 'true') {
+        if (w * h > standInArea) { standIn = e; standInArea = w * h; }
+      } else if (w * h > area) { img = e; area = w * h; }
     }
+    if (!img) img = standIn;
 
     const head = it.head;
     const th = head && (head.matches(ANY_HEADING + ', strong, b, a') ? head : head.querySelector(ANY_HEADING));
@@ -1530,7 +1543,7 @@
       links.find((a) => /^#(customer)?reviews?\b/i.test(a.hash));
 
     it.card = {
-      img: img ? bestSrc(img) : '',
+      img: img ? wirecutterImg(bestSrc(img)) : '',
       titleHref: ta ? ta.href : it.main || '',
       review: readMore ? readMore.href : '',
       buys,
